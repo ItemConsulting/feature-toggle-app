@@ -175,8 +175,8 @@ function addFontSupport(cfg) {
 
 module.exports = R.pipe(
   addBabelSupport,
-  addTypeScriptSupport,
-  addLessSupport,
+  // addTypeScriptSupport,
+  // addLessSupport,
   addSassSupport,
   addFontSupport
 )(config);
