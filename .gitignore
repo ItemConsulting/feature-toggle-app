@@ -106,3 +106,4 @@ npm-debug.log
 .project
 .settings
 bin/
+.vscode/settings.json
