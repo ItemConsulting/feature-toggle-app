@@ -18,6 +18,7 @@ dependencies {
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.0"
     include "com.gravitondigital.lib:feature-toggle:0.1.0"
+    include 'com.enonic.lib:lib-react4xp:1.2.0'
 }
 
 repositories {
@@ -74,11 +75,15 @@ processResources {
     includeEmptyDirs false
 }
 
+apply from: "node_modules/react4xp/react4xp.gradle"
+
 jar {
     exclude 'assets/styles/**/*.less'
     exclude 'assets/styles/**/*.sass'
     exclude 'assets/styles/**/*.scss'
     exclude 'assets/styles/**/*.js'
+
+    serverWebpack.dependsOn += 'config_tasks'
 
     dependsOn += clientWebpack
     dependsOn += serverWebpack

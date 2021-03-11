@@ -7,6 +7,10 @@
     <link rel="stylesheet" data-th-href="${styleBundle}"/>
 </head>
 <body>
-    <h1>Feature Toggle</h1>
+    <div id="feature-toggle"></div>
+
+    <span data-th-each="scr : ${pageContributions.bodyEnd}" data-th-remove="tag">
+        <span data-th-utext="${scr}" data-th-remove="tag"></span>
+    </span>
 </body>
 </html>
