@@ -6,11 +6,12 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { configureAppStore } from './store/configureStore';
 
 import { Main } from './containers/Main/index';
+import { Header } from './containers/Header/index';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { blue, pink } from '@material-ui/core/colors';
-import { AppBar, CssBaseline, makeStyles, responsiveFontSizes, Toolbar, Typography } from '@material-ui/core';
-import { setServiceUrls } from './containers/Main/actions'
+import { CssBaseline, makeStyles, responsiveFontSizes } from '@material-ui/core';
+import { setServiceUrls } from './containers/Main/actions';
 
 const theme = responsiveFontSizes(
   createMuiTheme({
@@ -24,9 +25,6 @@ const theme = responsiveFontSizes(
 );
 
 const useStyles = makeStyles({
-  title: {
-    flexGrow: 1,
-  },
   root: {
     flexGrow: 1,
   },
@@ -43,13 +41,7 @@ function FeatureToggle(props) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className={classes.root}>
-              <AppBar position="static">
-                <Toolbar>
-                  <Typography variant="h6" className={classes.title}>
-                    Feature Toggle
-                  </Typography>
-                </Toolbar>
-              </AppBar>
+              <Header/>
               <Switch>
                 <Route path="/" component={Main} />
               </Switch>
