@@ -1,13 +1,20 @@
 import axios from 'axios';
 import { actions } from './slice';
 
-export function requestSpaces(dispatch) {
+export function setServiceUrls(dispatch, getSpacesUrl) {
+  dispatch({
+    type: actions.setGetSpacesUrl.type,
+    getSpacesUrl,
+  });
+}
+
+export function requestSpaces(dispatch, getSpacesUrl) {
   dispatch({
     type: actions.loadSpaces.type,
   });
 
   axios
-    .get('http://localhost:8080/_/service/com.gravitondigital.app.featuretoggle/getSpaces')
+    .get(getSpacesUrl)
     .then((res) => {
       dispatch({
         type: actions.spacesLoaded.type,
@@ -17,7 +24,7 @@ export function requestSpaces(dispatch) {
     .catch((err) => {
       dispatch({
         type: actions.spacesError.type,
-        error: err.toString(),
+        error: `${err.toString()}${err.response.data.message ? ` - ${err.response.data.message}` : ''}`,
       });
     });
 }

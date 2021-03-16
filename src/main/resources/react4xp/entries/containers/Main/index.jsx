@@ -1,7 +1,7 @@
 import { Button, Container, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSpaces, selectSpacesStatus, selectSpacesError } from './selectors';
+import { selectSpaces, selectSpacesStatus, selectSpacesError, selectGetSpacesUrl } from './selectors';
 import { requestSpaces } from './actions';
 import { Alert } from '@material-ui/lab';
 
@@ -15,13 +15,14 @@ export function Main() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const getSpacesUrl = useSelector(selectGetSpacesUrl);
   const spaces = useSelector(selectSpaces);
   const spacesStatus = useSelector(selectSpacesStatus);
   const spacesError = useSelector(selectSpacesError);
 
   useEffect(() => {
-    if (spacesStatus === 'idle') {
-      requestSpaces(dispatch);
+    if (spacesStatus === 'idle' && getSpacesUrl) {
+      requestSpaces(dispatch, getSpacesUrl);
     }
   });
 
@@ -29,11 +30,15 @@ export function Main() {
     if (spacesStatus === 'loading' || spacesStatus === 'idle') {
       return <LinearProgress />;
     } else if (spacesStatus === 'error') {
-      return <Alert severity="error">This is an error alert — check it out!</Alert>;
+      return <Alert severity="error">{spacesError}</Alert>;
     } else if (spacesStatus === 'succeeded') {
-      return spaces.map((space) => {
-        return <div key={space._id}>{space._name}</div>;
-      });
+      if (spaces.length > 0) {
+        return spaces.map((space) => {
+          return <div key={space._id}>{space._name}</div>;
+        });
+      } else {
+        return <Alert severity="info">No spaces</Alert>
+      }
     }
   }
 

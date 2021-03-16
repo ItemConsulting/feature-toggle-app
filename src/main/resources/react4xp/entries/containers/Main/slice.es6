@@ -1,6 +1,7 @@
 import { createSlice } from '../../utils/@reduxjs/toolkit';
 
 export const initialState = {
+  getSpacesUrl: null,
   spaces: [],
   spacesStatus: 'idle',
   spacesError: undefined,
@@ -10,6 +11,9 @@ const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
+    setGetSpacesUrl(state, action) {
+      state.getSpacesUrl = action.getSpacesUrl
+    },
     loadSpaces(state, action) {
       state.spaces = [];
       state.spacesStatus = 'loading';
