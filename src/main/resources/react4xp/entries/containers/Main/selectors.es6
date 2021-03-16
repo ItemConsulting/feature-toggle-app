@@ -24,3 +24,23 @@ export const selectSpacesError = createSelector(
   [selectDomain],
   (mainState) => mainState.spacesError,
 )
+
+export const selectGetFeaturesUrl = createSelector(
+  [selectDomain],
+  (mainState) => mainState.getFeaturesUrl,
+)
+
+export const selectFeatures = createSelector(
+  [selectDomain],
+  (mainState) => mainState.features,
+)
+
+export const selectFeaturesStatus = createSelector(
+  [selectDomain],
+  (mainState) => mainState.featuresStatus,
+)
+
+export const selectFeaturesError = createSelector(
+  [selectDomain],
+  (mainState) => mainState.featuresError,
+)

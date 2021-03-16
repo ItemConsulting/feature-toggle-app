@@ -10,6 +10,9 @@ exports.get = (req) => {
       getSpacesUrl: serviceUrl({
         service: 'getSpaces',
       }),
+      getFeaturesUrl: serviceUrl({
+        service: 'getFeatures'
+      })
     })
     .setId('feature-toggle');
 

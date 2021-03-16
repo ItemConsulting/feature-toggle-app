@@ -34,7 +34,7 @@ function FeatureToggle(props) {
   const classes = useStyles();
   return (
     <Provider store={configureAppStore()}>
-      <ServiceUrls getSpacesUrl={props.getSpacesUrl} />
+      <ServiceUrls getSpacesUrl={props.getSpacesUrl} getFeaturesUrl={props.getFeaturesUrl}/>
       <HelmetProvider>
         <BrowserRouter>
           <Helmet titleTemplate="Feature Toggle" defaultTitle="Feature Toggle"></Helmet>
@@ -55,12 +55,13 @@ function FeatureToggle(props) {
 
 function ServiceUrls(props) {
   const dispatch = useDispatch();
-  setServiceUrls(dispatch, props.getSpacesUrl);
+  setServiceUrls(dispatch, props.getSpacesUrl, props.getFeaturesUrl);
   return null;
 }
 
 FeatureToggle.propTypes = {
   getSpacesUrl: PropTypes.string,
+  getFeaturesUrl: PropTypes.string,
 };
 
 export default (props) => <FeatureToggle {...props} />;
