@@ -10,8 +10,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   formControll: {
-    minWidth: 120
-  }
+    minWidth: 300,
+    marginRight: theme.spacing(2)
+  },
 }));
 
 export function Main() {
@@ -23,6 +24,7 @@ export function Main() {
   const spacesStatus = useSelector(selectSpacesStatus);
   const spacesError = useSelector(selectSpacesError);
   const [space, setSpace] = useState('');
+  const [branch, setBranch] = useState('draft');
 
   useEffect(() => {
     if (spacesStatus === 'idle' && getSpacesUrl) {
@@ -32,17 +34,30 @@ export function Main() {
 
   function renderSpaceForm() {
     return (
-      <FormControl className={classes.formControll}>
-        <InputLabel id="space-select-label">Space</InputLabel>
-        <Select labelId="space-select-label" id="space-select" value={space} onChange={(e) => setSpace(e.target.value)}>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {spaces.map((s) => {
-            return <MenuItem key={s._id} value={s._name}>{s._name}</MenuItem>;
-          })}
-        </Select>
-      </FormControl>
+      <React.Fragment>
+        <FormControl className={classes.formControll}>
+          <InputLabel id="space-select-label">Space</InputLabel>
+          <Select labelId="space-select-label" id="space-select" value={space} onChange={(e) => setSpace(e.target.value)}>
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {spaces.map((s) => {
+              return (
+                <MenuItem key={s._id} value={s._name}>
+                  {s._name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControll}>
+          <InputLabel id="branch-select-label">Branch</InputLabel>
+          <Select labelId="branch-select-label" id="branch-select" value={branch} onChange={(e) => setBranch(e.target.value)}>
+            <MenuItem value="draft">Draft</MenuItem>
+            <MenuItem value="master">Master</MenuItem>
+          </Select>
+        </FormControl>
+      </React.Fragment>
     );
   }
 
