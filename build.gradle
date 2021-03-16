@@ -55,6 +55,7 @@ task serverWebpack( type: NodeTask, dependsOn: npmInstall ) {
     // args = [ '--config', 'webpack.server.config.babel.js', '--color', '--hide-modules' ]
     args = [ '--config', 'webpack.server.config.js', '--color', '--hide-modules' ]
     description = 'Build server JS.'
+    dependsOn += 'config_tasks'
     inputs.dir 'src/main'
     outputs.dir "${buildDir}/resources/main"
     script = file( 'node_modules/webpack-cli/bin/cli.js' )
@@ -82,8 +83,6 @@ jar {
     exclude 'assets/styles/**/*.sass'
     exclude 'assets/styles/**/*.scss'
     exclude 'assets/styles/**/*.js'
-
-    serverWebpack.dependsOn += 'config_tasks'
 
     dependsOn += clientWebpack
     dependsOn += serverWebpack
