@@ -7,11 +7,11 @@ const view = resolve('./featuretoggle.html');
 exports.get = (req) => {
   const featureToggle = new React4xp('FeatureToggle')
     .setProps({
-      getSpacesUrl: serviceUrl({
-        service: 'getSpaces',
+      spacesUrl: serviceUrl({
+        service: 'spaces',
       }),
-      getFeaturesUrl: serviceUrl({
-        service: 'getFeatures'
+      featuresUrl: serviceUrl({
+        service: 'features'
       })
     })
     .setId('feature-toggle');

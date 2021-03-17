@@ -1,8 +1,8 @@
 import { createSlice } from '../../utils/@reduxjs/toolkit';
 
 export const initialState = {
-  getSpacesUrl: null,
-  getFeaturesUrl: null,
+  spacesUrl: null,
+  featuresUrl: null,
   spaces: [],
   spacesStatus: 'idle',
   spacesError: undefined,
@@ -15,11 +15,11 @@ const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    setGetSpacesUrl(state, action) {
-      state.getSpacesUrl = action.getSpacesUrl
+    setSpacesUrl(state, action) {
+      state.spacesUrl = action.spacesUrl
     },
-    setGetFeaturesUrl(state, action) {
-      state.getFeaturesUrl = action.getFeaturesUrl
+    setFeaturesUrl(state, action) {
+      state.featuresUrl = action.featuresUrl
     },
     loadSpaces(state, action) {
       state.spaces = [];

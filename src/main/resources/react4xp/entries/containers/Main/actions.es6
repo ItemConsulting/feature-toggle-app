@@ -1,24 +1,24 @@
 import axios from 'axios';
 import { actions } from './slice';
 
-export function setServiceUrls(dispatch, getSpacesUrl, getFeaturesUrl) {
+export function setServiceUrls(dispatch, spacesUrl, featuresUrl) {
   dispatch({
-    type: actions.setGetSpacesUrl.type,
-    getSpacesUrl,
+    type: actions.setSpacesUrl.type,
+    spacesUrl: spacesUrl,
   });
   dispatch({
-    type: actions.setGetFeaturesUrl.type,
-    getFeaturesUrl,
+    type: actions.setFeaturesUrl.type,
+    featuresUrl: featuresUrl,
   });
 }
 
-export function requestSpaces(dispatch, getSpacesUrl) {
+export function requestSpaces(dispatch, spacesUrl) {
   dispatch({
     type: actions.loadSpaces.type,
   });
 
   axios
-    .get(getSpacesUrl)
+    .get(spacesUrl)
     .then((res) => {
       dispatch({
         type: actions.spacesLoaded.type,
@@ -33,12 +33,12 @@ export function requestSpaces(dispatch, getSpacesUrl) {
     });
 }
 
-export function requestFeatures(dispatch, getFeaturesUrl, space, branch) {
+export function requestFeatures(dispatch, featuresUrl, space, branch) {
   dispatch({
     type: actions.loadFeatures.type,
   });
   axios
-    .get(getFeaturesUrl, {
+    .get(featuresUrl, {
       params: {
         space,
         branch,
@@ -56,4 +56,9 @@ export function requestFeatures(dispatch, getFeaturesUrl, space, branch) {
         error: `${err.toString()}${err.response.data.message ? ` - ${err.response.data.message}` : ''}`,
       });
     });
+}
+
+
+export function requestFeatureToggle(dispatch, featureToggleUrl, space, branch, feature) {
+  
 }

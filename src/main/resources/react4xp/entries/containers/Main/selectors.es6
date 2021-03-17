@@ -5,9 +5,9 @@ import { initialState } from './slice'
 // First select the relevant part from the state
 const selectDomain = (state) => state.main || initialState
 
-export const selectGetSpacesUrl = createSelector(
+export const selectSpacesUrl = createSelector(
   [selectDomain],
-  (mainState) => mainState.getSpacesUrl,
+  (mainState) => mainState.spacesUrl,
 )
 
 export const selectSpaces = createSelector(
@@ -25,9 +25,9 @@ export const selectSpacesError = createSelector(
   (mainState) => mainState.spacesError,
 )
 
-export const selectGetFeaturesUrl = createSelector(
+export const selectFeaturesUrl = createSelector(
   [selectDomain],
-  (mainState) => mainState.getFeaturesUrl,
+  (mainState) => mainState.featuresUrl,
 )
 
 export const selectFeatures = createSelector(

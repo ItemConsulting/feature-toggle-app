@@ -1,7 +1,7 @@
 import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, Switch, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSpaces, selectSpacesStatus, selectSpacesError, selectGetSpacesUrl, selectGetFeaturesUrl, selectFeatures, selectFeaturesStatus, selectFeaturesError } from './selectors';
+import { selectSpaces, selectSpacesStatus, selectSpacesError, selectSpacesUrl, selectFeaturesUrl, selectFeatures, selectFeaturesStatus, selectFeaturesError } from './selectors';
 import { requestSpaces, requestFeatures } from './actions';
 import { Alert } from '@material-ui/lab';
 
@@ -25,12 +25,12 @@ export function Main() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const getSpacesUrl = useSelector(selectGetSpacesUrl);
+  const spacesUrl = useSelector(selectSpacesUrl);
   const spaces = useSelector(selectSpaces);
   const spacesStatus = useSelector(selectSpacesStatus);
   const spacesError = useSelector(selectSpacesError);
 
-  const getFeaturesUrl = useSelector(selectGetFeaturesUrl);
+  const featuresUrl = useSelector(selectFeaturesUrl);
   const features = useSelector(selectFeatures);
   const featuresStatus = useSelector(selectFeaturesStatus);
   const featuresError = useSelector(selectFeaturesError);
@@ -39,14 +39,14 @@ export function Main() {
   const [branch, setBranch] = useState('draft');
 
   useEffect(() => {
-    if (spacesStatus === 'idle' && getSpacesUrl) {
-      requestSpaces(dispatch, getSpacesUrl);
+    if (spacesStatus === 'idle' && spacesUrl) {
+      requestSpaces(dispatch, spacesUrl);
     }
   });
 
   useEffect(() => {
     if (space && branch) {
-      requestFeatures(dispatch, getFeaturesUrl, space, branch);
+      requestFeatures(dispatch, featuresUrl, space, branch);
     }
   }, [space, branch]);
 
