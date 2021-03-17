@@ -2,7 +2,7 @@ import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgre
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSpaces, selectSpacesStatus, selectSpacesError, selectSpacesUrl, selectFeaturesUrl, selectFeatures, selectFeaturesStatus, selectFeaturesError } from './selectors';
-import { requestSpaces, requestFeatures } from './actions';
+import { requestSpaces, requestFeatures, updateFeature } from './actions';
 import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,7 +116,7 @@ export function Main() {
                       <Switch
                         checked={feature.enabled}
                         onChange={() => {
-                          console.log(feature._name, !feature.enabled);
+                          updateFeature(dispatch, featuresUrl, space, feature._name, !feature.enabled)
                         }}
                         color="primary"
                       />

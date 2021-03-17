@@ -58,7 +58,28 @@ export function requestFeatures(dispatch, featuresUrl, space, branch) {
     });
 }
 
-
-export function requestFeatureToggle(dispatch, featureToggleUrl, space, branch, feature) {
-  
+export function updateFeature(dispatch, featuresUrl, space, feature, enabled) {
+  dispatch({
+    type: actions.updateFeatureLoading.type,
+    feature,
+  });
+  axios
+    .post(featuresUrl, {
+      space,
+      feature,
+      enabled,
+    })
+    .then((res) => {
+      dispatch({
+        type: actions.updateFeatureSuccess.type,
+        feature: res.data.feature,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: actions.updateFeatureError.type,
+        error: `${err.toString()}${err.response.data.message ? ` - ${err.response.data.message}` : ''}`,
+        feature: feature,
+      });
+    });
 }

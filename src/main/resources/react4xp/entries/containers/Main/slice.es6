@@ -8,7 +8,7 @@ export const initialState = {
   spacesError: undefined,
   features: [],
   featuresStatus: 'idle',
-  featuresError: undefined
+  featuresError: undefined,
 };
 
 const mainSlice = createSlice({
@@ -16,10 +16,10 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     setSpacesUrl(state, action) {
-      state.spacesUrl = action.spacesUrl
+      state.spacesUrl = action.spacesUrl;
     },
     setFeaturesUrl(state, action) {
-      state.featuresUrl = action.featuresUrl
+      state.featuresUrl = action.featuresUrl;
     },
     loadSpaces(state, action) {
       state.spaces = [];
@@ -46,6 +46,27 @@ const mainSlice = createSlice({
     featuresError(state, action) {
       state.featuresError = action.error;
       state.featuresStatus = 'error';
+    },
+    updateFeatureLoading(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature);
+      if (feature) {
+        feature.error = null;
+        feature.updateStatus = 'loading';
+      }
+    },
+    updateFeatureSuccess(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature._name);
+      if (feature) {
+        feature.updateStatus = 'succeeded';
+        feature.enabled = action.feature.enabled
+      }
+    },
+    updateFeatureError(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature);
+      if (feature) {
+        feature.updateStatus = 'error';
+        feature.error = action.error
+      }
     },
   },
 });
