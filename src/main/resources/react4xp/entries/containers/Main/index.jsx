@@ -1,7 +1,17 @@
 import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, Switch, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSpaces, selectSpacesStatus, selectSpacesError, selectSpacesUrl, selectFeaturesUrl, selectFeatures, selectFeaturesStatus, selectFeaturesError } from './selectors';
+import {
+  selectSpaces,
+  selectSpacesStatus,
+  selectSpacesError,
+  selectSpacesUrl,
+  selectFeaturesUrl,
+  selectFeatures,
+  selectFeaturesStatus,
+  selectFeaturesError,
+  selectPublishFeatureUrl,
+} from './selectors';
 import { requestSpaces, requestFeatures, updateFeature } from './actions';
 import { Alert } from '@material-ui/lab';
 
@@ -17,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   featureName: {
-    padding: theme.spacing(1.5)
-  }
+    padding: theme.spacing(1.5),
+  },
 }));
 
 export function Main() {
@@ -34,6 +44,8 @@ export function Main() {
   const features = useSelector(selectFeatures);
   const featuresStatus = useSelector(selectFeaturesStatus);
   const featuresError = useSelector(selectFeaturesError);
+
+  const publishFeaturesUrl = useSelector(selectPublishFeatureUrl);
 
   const [space, setSpace] = useState('');
   const [branch, setBranch] = useState('draft');
@@ -110,19 +122,23 @@ export function Main() {
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={10}>
-                      <Typography component="div" className={classes.featureName} variant="body1">{feature._name}</Typography>
+                      <Typography component="div" className={classes.featureName} variant="body1">
+                        {feature._name}
+                      </Typography>
                     </Grid>
                     <Grid item xs={1}>
                       <Switch
                         checked={feature.enabled}
                         onChange={() => {
-                          updateFeature(dispatch, featuresUrl, space, feature._name, !feature.enabled)
+                          updateFeature(dispatch, featuresUrl, space, feature._name, !feature.enabled);
                         }}
                         color="primary"
                       />
                     </Grid>
                     <Grid item xs={1}>
-                      <Button variant="contained" color="primary">Publish</Button>
+                      <Button variant="contained" color="primary">
+                        Publish
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>

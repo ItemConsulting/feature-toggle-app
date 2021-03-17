@@ -11,8 +11,11 @@ exports.get = (req) => {
         service: 'spaces',
       }),
       featuresUrl: serviceUrl({
-        service: 'features'
-      })
+        service: 'features',
+      }),
+      publishFeatureUrl: serviceUrl({
+        service: 'publishFeature',
+      }),
     })
     .setId('feature-toggle');
 

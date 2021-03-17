@@ -44,3 +44,8 @@ export const selectFeaturesError = createSelector(
   [selectDomain],
   (mainState) => mainState.featuresError,
 )
+
+export const selectPublishFeatureUrl = createSelector(
+  [selectDomain],
+  (mainState) => mainState.publishFeatureUrl,
+)

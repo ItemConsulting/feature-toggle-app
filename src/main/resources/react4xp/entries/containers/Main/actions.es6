@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { actions } from './slice';
 
-export function setServiceUrls(dispatch, spacesUrl, featuresUrl) {
+export function setServiceUrls(dispatch, spacesUrl, featuresUrl, publishFeatureUrl) {
   dispatch({
     type: actions.setSpacesUrl.type,
     spacesUrl: spacesUrl,
@@ -9,6 +9,10 @@ export function setServiceUrls(dispatch, spacesUrl, featuresUrl) {
   dispatch({
     type: actions.setFeaturesUrl.type,
     featuresUrl: featuresUrl,
+  });
+  dispatch({
+    type: actions.setPublishFeatureUrl.type,
+    publishFeatureUrl: publishFeatureUrl,
   });
 }
 

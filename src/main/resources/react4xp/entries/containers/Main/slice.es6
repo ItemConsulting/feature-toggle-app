@@ -3,6 +3,7 @@ import { createSlice } from '../../utils/@reduxjs/toolkit';
 export const initialState = {
   spacesUrl: null,
   featuresUrl: null,
+  publishFeatureUrl: null,
   spaces: [],
   spacesStatus: 'idle',
   spacesError: undefined,
@@ -20,6 +21,9 @@ const mainSlice = createSlice({
     },
     setFeaturesUrl(state, action) {
       state.featuresUrl = action.featuresUrl;
+    },
+    setPublishFeatureUrl(state, action) {
+      state.publishFeatureUrl = action.publishFeatureUrl;
     },
     loadSpaces(state, action) {
       state.spaces = [];
