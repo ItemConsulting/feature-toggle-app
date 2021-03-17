@@ -100,7 +100,7 @@ export function Main() {
     if (featuresStatus === 'loading') {
       return <LinearProgress />;
     } else if (featuresStatus === 'error') {
-      return <Alert severity="error">{spacesError}</Alert>;
+      return <Alert severity="error">{featuresError}</Alert>;
     } else if (featuresStatus === 'succeeded') {
       return (
         <Grid container spacing={2}>
