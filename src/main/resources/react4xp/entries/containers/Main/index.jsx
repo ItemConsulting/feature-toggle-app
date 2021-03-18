@@ -12,7 +12,7 @@ import {
   selectFeaturesError,
   selectPublishFeatureUrl,
 } from './selectors';
-import { requestSpaces, requestFeatures, updateFeature } from './actions';
+import { requestSpaces, requestFeatures, updateFeature, publishFeature } from './actions';
 import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   featureName: {
     padding: theme.spacing(1.5),
-  },
+  }
 }));
 
 export function Main() {
@@ -136,9 +136,11 @@ export function Main() {
                       />
                     </Grid>
                     <Grid item xs={1}>
-                      <Button variant="contained" color="primary">
-                        Publish
-                      </Button>
+                      {branch === 'master' ? null : (
+                        <Button variant="contained" color="primary" onClick={() => publishFeature(dispatch, publishFeaturesUrl, space, feature._name)}>
+                          Publish
+                        </Button>
+                      )}
                     </Grid>
                   </Grid>
                 </Grid>

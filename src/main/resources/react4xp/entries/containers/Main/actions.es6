@@ -87,3 +87,28 @@ export function updateFeature(dispatch, featuresUrl, space, feature, enabled) {
       });
     });
 }
+
+export function publishFeature(dispatch, publishFeatureUrl, space, feature) {
+  dispatch({
+    type: actions.publishFeatureLoading.type,
+    feature,
+  });
+  axios
+    .post(publishFeatureUrl, {
+      space,
+      feature
+    })
+    .then((res) => {
+      dispatch({
+        type: actions.publishFeatureSuccess.type,
+        feature: feature,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: actions.publishFeatureError.type,
+        error: `${err.toString()}${err.response.data.message ? ` - ${err.response.data.message}` : ''}`,
+        feature: feature,
+      });
+    });
+}

@@ -44,7 +44,14 @@ const mainSlice = createSlice({
       state.featuresError = undefined;
     },
     featuresLoaded(state, action) {
-      state.features = action.features;
+      state.features = action.features.map((f) => {
+        return {
+          ...f,
+          error: null,
+          updateStatus: 'idle',
+          publishStatus: 'idle'
+        }
+      });
       state.featuresStatus = 'succeeded';
     },
     featuresError(state, action) {
@@ -69,6 +76,26 @@ const mainSlice = createSlice({
       const feature = state.features.find((f) => f._name === action.feature);
       if (feature) {
         feature.updateStatus = 'error';
+        feature.error = action.error
+      }
+    },
+    publishFeatureLoading(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature);
+      if (feature) {
+        feature.error = null;
+        feature.publishStatus = 'loading';
+      }
+    },
+    publishFeatureSuccess(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature);
+      if (feature) {
+        feature.publishStatus = 'succeeded';
+      }
+    },
+    publishFeatureError(state, action) {
+      const feature = state.features.find((f) => f._name === action.feature);
+      if (feature) {
+        feature.publishStatus = 'error';
         feature.error = action.error
       }
     },
