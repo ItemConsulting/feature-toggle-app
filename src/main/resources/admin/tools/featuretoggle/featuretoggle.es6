@@ -1,7 +1,6 @@
 const React4xp = require('/lib/enonic/react4xp');
 const { render } = __non_webpack_require__('/lib/thymeleaf');
 const { assetUrl, serviceUrl } = __non_webpack_require__('/lib/xp/portal');
-
 const view = resolve('./featuretoggle.html');
 
 exports.get = (req) => {

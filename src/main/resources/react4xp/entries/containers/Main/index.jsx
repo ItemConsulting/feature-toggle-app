@@ -1,4 +1,4 @@
-import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, Switch, Typography } from '@material-ui/core';
+import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, Snackbar, Switch, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -14,6 +14,7 @@ import {
 } from './selectors';
 import { requestSpaces, requestFeatures, updateFeature, publishFeature } from './actions';
 import { Alert } from '@material-ui/lab';
+import { Feedback } from '../Feedback'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   featureName: {
     padding: theme.spacing(1.5),
-  }
+  },
 }));
 
 export function Main() {
@@ -131,7 +132,7 @@ export function Main() {
                         checked={feature.enabled}
                         disabled={feature.updateStatus === 'loading'}
                         onChange={() => {
-                          if(branch === 'master') return
+                          if (branch === 'master') return;
                           updateFeature(dispatch, featuresUrl, space, feature._name, !feature.enabled);
                         }}
                         color="primary"
@@ -139,13 +140,14 @@ export function Main() {
                     </Grid>
                     <Grid item xs={2}>
                       {branch === 'master' ? null : (
-                        <Button 
-                          variant="contained" 
-                          color="primary" 
+                        <Button
+                          variant="contained"
+                          color="primary"
                           disabled={feature.publishStatus === 'loading'}
                           onClick={() => {
-                            publishFeature(dispatch, publishFeaturesUrl, space, feature._name)
-                          }}>
+                            publishFeature(dispatch, publishFeaturesUrl, space, feature._name);
+                          }}
+                        >
                           Publish
                         </Button>
                       )}
@@ -169,6 +171,7 @@ export function Main() {
     <Container maxWidth={'lg'} className={classes.root}>
       <div className={classes.row}>{renderSpaces()}</div>
       <div className={classes.row}>{renderFeatures()}</div>
+      <Feedback />
     </Container>
   );
 }

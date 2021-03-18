@@ -99,6 +99,18 @@ const mainSlice = createSlice({
         feature.error = action.error
       }
     },
+    setFeaturePublishStatus(state, action) {
+      const feature = state.features.find((f) => f._id === action.feature._id);
+      if (feature) {
+        feature.publishStatus = action.status;
+      }
+    },
+    setFeatureUpdateStatus(state, action) {
+      const feature = state.features.find((f) => f._id === action.feature._id);
+      if (feature) {
+        feature.updateStatus = action.status;
+      }
+    },
   },
 });
 

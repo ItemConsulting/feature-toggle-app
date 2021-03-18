@@ -112,3 +112,19 @@ export function publishFeature(dispatch, publishFeatureUrl, space, feature) {
       });
     });
 }
+
+export function setFeaturePublishStatus(dispatch, feature, status) {
+  dispatch({
+    type: actions.setFeaturePublishStatus.type,
+    feature,
+    status
+  })
+}
+
+export function setFeatureUpdateStatus(dispatch, feature, status) {
+  dispatch({
+    type: actions.setFeatureUpdateStatus.type,
+    feature,
+    status
+  })
+}

@@ -49,3 +49,31 @@ export const selectPublishFeatureUrl = createSelector(
   [selectDomain],
   (mainState) => mainState.publishFeatureUrl,
 )
+
+export const selectFeaturePublishErrors = createSelector(
+  [selectDomain],
+  (mainState) => mainState.features.filter((f) => {
+    return f.publishStatus === 'error'
+  }),
+)
+
+export const selectFeaturePublishSuccesses = createSelector(
+  [selectDomain],
+  (mainState) => mainState.features.filter((f) => {
+    return f.publishStatus === 'succeeded'
+  }),
+)
+
+export const selectFeatureUpdateErrors = createSelector(
+  [selectDomain],
+  (mainState) => mainState.features.filter((f) => {
+    return f.updateStatus === 'error'
+  }),
+)
+
+export const selectFeatureUpdateSuccesses = createSelector(
+  [selectDomain],
+  (mainState) => mainState.features.filter((f) => {
+    return f.updateStatus === 'succeeded'
+  }),
+)
