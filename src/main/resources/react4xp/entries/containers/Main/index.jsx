@@ -121,23 +121,31 @@ export function Main() {
               <React.Fragment key={feature._id}>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
-                    <Grid item xs={10}>
+                    <Grid item xs={8}>
                       <Typography component="div" className={classes.featureName} variant="body1">
                         {feature._name}
                       </Typography>
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={2}>
                       <Switch
                         checked={feature.enabled}
+                        disabled={feature.updateStatus === 'loading'}
                         onChange={() => {
+                          if(branch === 'master') return
                           updateFeature(dispatch, featuresUrl, space, feature._name, !feature.enabled);
                         }}
                         color="primary"
                       />
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={2}>
                       {branch === 'master' ? null : (
-                        <Button variant="contained" color="primary" onClick={() => publishFeature(dispatch, publishFeaturesUrl, space, feature._name)}>
+                        <Button 
+                          variant="contained" 
+                          color="primary" 
+                          disabled={feature.publishStatus === 'loading'}
+                          onClick={() => {
+                            publishFeature(dispatch, publishFeaturesUrl, space, feature._name)
+                          }}>
                           Publish
                         </Button>
                       )}
