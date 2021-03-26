@@ -17,11 +17,14 @@ dependencies {
     include "com.enonic.xp:lib-content:${xpVersion}"
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.0"
-    include "com.gravitondigital.lib:feature-toggle:0.1.0"
+    include "com.gravitondigital:featuretogglelib:0.1.0"
     include 'com.enonic.lib:lib-react4xp:1.2.0'
 }
 
 repositories {
+    maven {
+        url "https://repo1.maven.org/maven2/"
+    }
     mavenLocal()
     jcenter()
     xp.enonicRepo()
