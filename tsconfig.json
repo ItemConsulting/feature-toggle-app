@@ -6,9 +6,29 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "jsx": "react",
+    "lib": [
+        "DOM", // The server doesn't supports DOM, beeing permissive
+        "ES2015",
+    ],
+    "moduleResolution": "node",
+    "paths": {
+      "/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
+      "/lib/xp/*": ["./node_modules/@enonic-types/lib-*"],
+      "/*": ["./src/main/resources/*"],
+    },
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/@enonic-types"
+    ]
   },
   "types": [
     "types"
-  ]
+  ],
+  "include": [
+    "./src/main/resources/**/*.ts",
+    "./src/main/resources/**/*.tsx"
+],
 }

@@ -19,7 +19,7 @@ dependencies {
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.0"
     include "com.gravitondigital:featuretogglelib:0.1.0"
-    include 'com.enonic.lib:lib-react4xp:1.2.0'
+    include "com.enonic.lib:lib-react4xp:4.x.x"
 }
 
 repositories {
@@ -64,6 +64,26 @@ task serverWebpack( type: NodeTask, dependsOn: npmInstall ) {
     outputs.dir "${buildDir}/resources/main"
     script = file( 'node_modules/webpack-cli/bin/cli.js' )
 }
+
+task react4xp(type: NpmTask, dependsOn: npmInstall) {
+  args = [
+    'run',
+    'build:react4xp' // This script must exist in the package.json file
+  ]
+  description 'Compile React4xp resources'
+  environment = [
+    'R4X_APP_NAME': "${appName}",
+    'R4X_BUILD_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
+    'R4X_DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
+    'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+  ]
+  group 'react4xp'
+  // It also watches package.json and package-lock.json :)
+  inputs.dir 'node_modules/@enonic/react4xp'
+  inputs.dir 'src/main/resources'
+  outputs.dir 'build/resources/main'
+}
+jar.dependsOn 'react4xp'
 
 processResources {
     include '**/*'
