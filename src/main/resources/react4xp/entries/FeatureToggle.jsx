@@ -8,13 +8,12 @@ import { configureAppStore } from './store/configureStore';
 import { Main } from './containers/Main/index';
 import { Header } from './containers/Header/index';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { blue, pink } from '@material-ui/core/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, makeStyles, responsiveFontSizes } from '@material-ui/core';
 import { setServiceUrls } from './containers/Main/actions';
 
 const theme = responsiveFontSizes(
-  createMuiTheme({
+  createTheme({
     palette: {
       type: 'dark',
     },

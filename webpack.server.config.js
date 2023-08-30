@@ -39,11 +39,15 @@ const config = {
     },
   },
   plugins: [
-    new CopyWebpackPlugin([
-        // { from: 'babel-standalone/', to: 'assets/babel-standalone/' },
-      ], {
-      context: path.resolve(__dirname, 'node_modules')
-    })
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: 'babel-standalone/', 
+    //       to: 'assets/babel-standalone/',
+    //       context: path.resolve(__dirname, 'node_modules')
+    //     }
+    //   ]
+    // })
   ],
   externals: [
     /\/lib\/(enonic|xp)\/.+/

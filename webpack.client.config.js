@@ -31,8 +31,8 @@ const config = {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        sourceMap: true,
         terserOptions: {
+          sourceMap: true,
           compress: {
             drop_console: false,
           },
@@ -102,11 +102,16 @@ function addBabelSupport(cfg) {
 // CSS loaders
 // ----------------------------------------------------------------------------
 
-const createDefaultCssLoaders = () => ([
-  {loader: MiniCssExtractPlugin.loader, options: {publicPath: '../', hmr: isDev}},
-  {loader: 'css-loader', options: {sourceMap: !isProd, importLoaders: 1}},
-  {loader: 'postcss-loader', options: {sourceMap: !isProd}},
-]);
+const createDefaultCssLoaders = () =>
+  this.isDev
+    ? [{ loader: MiniCssExtractPlugin.loader, options: { publicPath: "../" } }]
+    : [
+        {
+          loader: "css-loader",
+          options: { sourceMap: !isProd, importLoaders: 1 },
+        },
+        { loader: "postcss-loader", options: { sourceMap: !isProd } },
+      ];
 
 const createCssPlugin = () => (
   new MiniCssExtractPlugin({
