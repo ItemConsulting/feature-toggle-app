@@ -1,22 +1,29 @@
 import React from 'react';
-import { AppBar, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
-const useStyles = makeStyles({
-  title: {
+const PREFIX = 'index';
+
+const classes = {
+  title: `${PREFIX}-title`
+};
+
+const StyledAppBar = styled(AppBar)({
+  [`& .${classes.title}`]: {
     flexGrow: 1,
   },
 });
 
 export function Header() {
-  const classes = useStyles();
+
 
   return (
-    <AppBar position="static">
+    <StyledAppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Feature Toggle
         </Typography>
       </Toolbar>
-    </AppBar>
+    </StyledAppBar>
   );
 }

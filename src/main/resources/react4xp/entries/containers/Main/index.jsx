@@ -1,4 +1,5 @@
-import { Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, makeStyles, MenuItem, Select, Snackbar, Switch, Typography } from '@material-ui/core';
+import { Alert, Button, Container, Divider, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select, Switch, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -13,27 +14,42 @@ import {
   selectPublishFeatureUrl,
 } from './selectors';
 import { requestSpaces, requestFeatures, updateFeature, publishFeature } from './actions';
-import { Alert } from '@material-ui/lab';
 import { Feedback } from '../Feedback'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
+const PREFIX = 'index';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  formControll: `${PREFIX}-formControll`,
+  row: `${PREFIX}-row`,
+  featureName: `${PREFIX}-featureName`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
     marginTop: theme.spacing(2),
   },
-  formControll: {
+
+  [`& .${classes.formControll}`]: {
     minWidth: 300,
     marginRight: theme.spacing(2),
   },
-  row: {
+
+  [`& .${classes.row}`]: {
     marginBottom: theme.spacing(2),
   },
-  featureName: {
+
+  [`& .${classes.featureName}`]: {
     padding: theme.spacing(1.5),
-  },
+  }
 }));
 
 export function Main() {
-  const classes = useStyles();
+
 
   const dispatch = useDispatch();
   const spacesUrl = useSelector(selectSpacesUrl);
@@ -168,10 +184,10 @@ export function Main() {
   }
 
   return (
-    <Container maxWidth={'lg'} className={classes.root}>
+    <StyledContainer maxWidth={'lg'} className={classes.root}>
       <div className={classes.row}>{renderSpaces()}</div>
       <div className={classes.row}>{renderFeatures()}</div>
       <Feedback />
-    </Container>
+    </StyledContainer>
   );
 }

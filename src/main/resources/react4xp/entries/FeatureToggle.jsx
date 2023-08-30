@@ -8,14 +8,26 @@ import { configureAppStore } from './store/configureStore';
 import { Main } from './containers/Main/index';
 import { Header } from './containers/Header/index';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, makeStyles, responsiveFontSizes } from '@material-ui/core';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { CssBaseline, responsiveFontSizes } from '@mui/material';
 import { setServiceUrls } from './containers/Main/actions';
+
+const PREFIX = 'FeatureToggle';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledFeatureToggle = styled(FeatureToggle)({
+  [`& .${classes.root}`]: {
+    flexGrow: 1,
+  },
+});
 
 const theme = responsiveFontSizes(
   createTheme({
     palette: {
-      type: 'dark',
+      mode: 'dark',
     },
     typography: {
       htmlFontSize: 10,
@@ -23,14 +35,8 @@ const theme = responsiveFontSizes(
   })
 );
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-});
-
 function FeatureToggle(props) {
-  const classes = useStyles();
+
   return (
     <Provider store={configureAppStore()}>
       <ServiceUrls spacesUrl={props.spacesUrl} featuresUrl={props.featuresUrl} publishFeatureUrl={props.publishFeatureUrl} />
@@ -64,4 +70,4 @@ FeatureToggle.propTypes = {
   publishFeatureUrl: PropTypes.string,
 };
 
-export default (props) => <FeatureToggle {...props} />;
+export default (props) => <StyledFeatureToggle {...props} />;

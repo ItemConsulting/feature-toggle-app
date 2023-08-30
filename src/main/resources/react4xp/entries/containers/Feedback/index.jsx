@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppBar, makeStyles, Snackbar, Toolbar, Typography } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Alert, Snackbar } from '@mui/material';
 import { selectFeaturePublishErrors, selectFeaturePublishSuccesses, selectFeatureUpdateErrors, selectFeatureUpdateSuccesses } from '../Main/selectors';
 import { setFeaturePublishStatus, setFeatureUpdateStatus } from '../Main/actions';
 

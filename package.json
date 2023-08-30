@@ -19,7 +19,6 @@
     "@babel/register": "^7.22.5",
     "@enonic/react4xp": "4.1.0",
     "@mui/icons-material": "^5.14.7",
-    "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.7",
     "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "^10.4.15",
