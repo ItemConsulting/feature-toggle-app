@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const R = require('ramda');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {
   setEntriesForPath,
   addRule,
