@@ -1,8 +1,9 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
-    id 'java'
-    id 'com.moowork.node' version '1.3.1'
-    id 'com.enonic.xp.app' version '2.0.0'
-    id "com.vanniktech.maven.publish" version "0.13.0"
+    id("com.github.node-gradle.node") version "7.0.0"
+    id 'com.enonic.xp.app' version '3.4.0'
+    id 'no.item.xp.codegen' version '2.2.2'
 }
 
 app {
@@ -10,8 +11,7 @@ app {
     displayName = "${appDisplayName}"
     vendorName = "${vendorName}"
     vendorUrl = "${vendorUrl}"
-    systemVersion = "${xpVersion}"
-}
+    systemVersion = "${xpVersion}"}
 
 dependencies {
     include "com.enonic.xp:lib-event:${xpVersion}"
@@ -19,7 +19,7 @@ dependencies {
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.0"
     include "com.gravitondigital:featuretogglelib:0.1.0"
-    include "com.enonic.lib:lib-react4xp:4.x.x"
+    include "com.enonic.lib:lib-react4xp:4.0.2-B2"
 }
 
 repositories {
@@ -27,42 +27,32 @@ repositories {
         url "https://repo1.maven.org/maven2/"
     }
     mavenLocal()
-    jcenter()
+    mavenCentral()
     xp.enonicRepo()
 }
 
 node {
     download = true
-    version '10.16.0'
-}
-
-task npmInstallForce( type: NpmTask ) {
-    description = 'Update all project node dependencies'
-    args = ['install', '--force']
-}
-
-task cleanNode( type: org.gradle.api.tasks.Delete ) {
-    delete 'node_modules'
+    version = '18.12.1'
 }
 
 task clientWebpack( type: NodeTask, dependsOn: npmInstall ) {
     environment = [ 'NODE_ENV': nodeEnvironment() ]
-    args = [ '--config', 'webpack.client.config.js', '--color', '--hide-modules' ]
+    args = [ '--config', 'webpack.client.config.js', '--color' ]
     description = 'Build UI resources (js, css, etc).'
     inputs.dir 'src/main'
     outputs.dir "${buildDir}/resources/main"
     script = file( 'node_modules/webpack-cli/bin/cli.js' )
 }
 
-task serverWebpack( type: NodeTask, dependsOn: npmInstall ) {
+task serverWebpack( type: NpxTask, dependsOn: npmInstall ) {
+    command  =  'webpack'
     environment = [ 'NODE_ENV': nodeEnvironment() ]
-    // args = [ '--config', 'webpack.server.config.babel.js', '--color', '--hide-modules' ]
-    args = [ '--config', 'webpack.server.config.js', '--color', '--hide-modules' ]
+    args = [ '--config', 'webpack.server.config.js', '--color']
     description = 'Build server JS.'
-    dependsOn += 'config_tasks'
+    outputs.cacheIf { true }
     inputs.dir 'src/main'
     outputs.dir "${buildDir}/resources/main"
-    script = file( 'node_modules/webpack-cli/bin/cli.js' )
 }
 
 task react4xp(type: NpmTask, dependsOn: npmInstall) {
@@ -100,19 +90,16 @@ processResources {
     includeEmptyDirs false
 }
 
-apply from: "node_modules/react4xp/react4xp.gradle"
-
 jar {
     exclude 'assets/styles/**/*.less'
     exclude 'assets/styles/**/*.sass'
     exclude 'assets/styles/**/*.scss'
     exclude 'assets/styles/**/*.js'
 
+    dependsOn += npmInstall
     dependsOn += clientWebpack
     dependsOn += serverWebpack
 }
-
-jar.outputs.dir "${buildDir}/resources/main"
 
 def nodeEnvironment() {
     def environments = [ prod : 'production', dev: 'development' ]
