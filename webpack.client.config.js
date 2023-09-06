@@ -102,42 +102,33 @@ function addBabelSupport(cfg) {
 // CSS loaders
 // ----------------------------------------------------------------------------
 
-const createDefaultCssLoaders = () =>
-  this.isDev
-    ? [{ loader: MiniCssExtractPlugin.loader, options: { publicPath: "../" } }]
-    : [
-        {
-          loader: "css-loader",
-          options: { sourceMap: !isProd, importLoaders: 1 },
-        },
-        { loader: "postcss-loader", options: { sourceMap: !isProd } },
-      ];
+const createDefaultCssLoaders = () => [
+  {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      publicPath: "../",
+    },
+  },
+  {
+    loader: "css-loader",
+    options: {
+      sourceMap: !isProd,
+      importLoaders: 1,
+    },
+  },
+  {
+    loader: "postcss-loader",
+    options: {
+      sourceMap: !isProd,
+    },
+  },
+];
 
-const createCssPlugin = () => (
+const createCssPlugin = () =>
   new MiniCssExtractPlugin({
-    filename: './styles/bundle.css',
-    chunkFilename: '[id].css',
-  })
-);
-
-// LESS
-function addLessSupport(cfg) {
-  const rule = {
-    test: /\.less$/,
-    use: [
-      ...createDefaultCssLoaders(),
-      {loader: 'less-loader', options: {sourceMap: !isProd}},
-    ]
-  };
-
-  const plugin = createCssPlugin();
-
-  return R.pipe(
-    addRule(rule),
-    addPlugin(plugin),
-    appendExtensions(['.less', '.css'])
-  )(cfg);
-}
+    filename: "./styles/bundle.css",
+    chunkFilename: "[id].css",
+  });
 
 // SASS & SCSS
 function addSassSupport(cfg) {
@@ -145,8 +136,8 @@ function addSassSupport(cfg) {
     test: /\.(sass|scss)$/,
     use: [
       ...createDefaultCssLoaders(),
-      {loader: 'sass-loader', options: {sourceMap: !isProd}},
-    ]
+      { loader: "sass-loader", options: { sourceMap: !isProd } },
+    ],
   };
 
   const plugin = createCssPlugin();
@@ -154,7 +145,7 @@ function addSassSupport(cfg) {
   return R.pipe(
     addRule(rule),
     addPlugin(plugin),
-    appendExtensions(['.sass', '.scss', '.css'])
+    appendExtensions([".sass", ".scss", ".css"])
   )(cfg);
 }
 

@@ -1,44 +1,43 @@
-import { React4xp } from "/lib/enonic/react4xp";
-const { render } = __non_webpack_require__('/lib/thymeleaf');
-const { assetUrl, serviceUrl } = __non_webpack_require__('/lib/xp/portal');
-const view = resolve('./featuretoggle.html');
+import { render as r4XpRender } from "/lib/enonic/react4xp";
+const { render } = __non_webpack_require__("/lib/thymeleaf");
+const { assetUrl, serviceUrl } = __non_webpack_require__("/lib/xp/portal");
+const view = resolve("./featuretoggle.html");
 
 exports.get = (req) => {
-  const featureToggle = new React4xp('FeatureToggle')
-    .setProps({
-      spacesUrl: serviceUrl({
-        service: 'spaces',
-      }),
-      featuresUrl: serviceUrl({
-        service: 'features',
-      }),
-      publishFeatureUrl: serviceUrl({
-        service: 'publishFeature',
-      }),
-    })
-    .setId('feature-toggle');
-
-  const pageContributions = featureToggle.renderPageContributions({
-    clientRender: true,
-  });
-
-  let body = render(view, {
-    jsBundle: assetUrl({
-      path: 'js/bundle.js',
+  const props = {
+    spacesUrl: serviceUrl({
+      service: "spaces",
     }),
-    styleBundle: assetUrl({
-      path: 'styles/bundle.css',
+    featuresUrl: serviceUrl({
+      service: "features",
     }),
-    pageContributions,
-  });
+    publishFeatureUrl: serviceUrl({
+      service: "publishFeature",
+    }),
+  };
 
-  body = featureToggle.renderBody({
-    body,
-    clientRender: true,
+  const featureToggle = r4XpRender("FeatureToggle", props, req, {
+    id: "feature-toggle",
+    ssr: false,
   });
 
   return {
-    body,
-    pageContributions,
+    body: render(view, {
+      ...getAssets(),
+      rendered: featureToggle.body,
+      pageContributions: featureToggle.pageContributions,
+    }),
+    pageContributions: featureToggle.pageContributions,
   };
 };
+
+function getAssets() {
+  return {
+    jsBundle: assetUrl({
+      path: "js/bundle.js",
+    }),
+    styleBundle: assetUrl({
+      path: "styles/bundle.css",
+    }),
+  };
+}

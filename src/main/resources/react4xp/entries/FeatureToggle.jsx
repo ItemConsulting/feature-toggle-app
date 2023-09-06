@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Provider, useDispatch } from 'react-redux';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { configureAppStore } from './store/configureStore';
 
 import { Main } from './containers/Main/index';
@@ -41,18 +40,14 @@ function FeatureToggle(props) {
     <Provider store={configureAppStore()}>
       <ServiceUrls spacesUrl={props.spacesUrl} featuresUrl={props.featuresUrl} publishFeatureUrl={props.publishFeatureUrl} />
       <HelmetProvider>
-        <BrowserRouter>
-          <Helmet titleTemplate="Feature Toggle" defaultTitle="Feature Toggle"></Helmet>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className={classes.root}>
-              <Header />
-              <Routes>
-                <Route path="/" component={Main} />
-              </Routes>
-            </div>
-          </ThemeProvider>
-        </BrowserRouter>
+        <Helmet titleTemplate="Feature Toggle" defaultTitle="Feature Toggle"></Helmet>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className={classes.root}>
+            <Header />
+            <Main />
+          </div>
+        </ThemeProvider>
       </HelmetProvider>
     </Provider>
   );
