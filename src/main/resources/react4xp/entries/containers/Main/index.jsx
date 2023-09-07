@@ -84,7 +84,7 @@ export function Main() {
       <React.Fragment>
         <FormControl className={classes.formControll}>
           <InputLabel id="space-select-label">Space</InputLabel>
-          <Select labelId="space-select-label" id="space-select" value={space} onChange={(e) => setSpace(e.target.value)}>
+          <Select labelId="space-select-label" id="space-select" value={space} onChange={(e) => setSpace(e.target.value)} label="Space">
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
@@ -99,7 +99,7 @@ export function Main() {
         </FormControl>
         <FormControl className={classes.formControll}>
           <InputLabel id="branch-select-label">Branch</InputLabel>
-          <Select labelId="branch-select-label" id="branch-select" value={branch} onChange={(e) => setBranch(e.target.value)}>
+          <Select labelId="branch-select-label" id="branch-select" value={branch} onChange={(e) => setBranch(e.target.value)} label="Branch">
             <MenuItem value="draft">Draft</MenuItem>
             <MenuItem value="master">Master</MenuItem>
           </Select>
