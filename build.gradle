@@ -11,7 +11,8 @@ app {
     displayName = "${appDisplayName}"
     vendorName = "${vendorName}"
     vendorUrl = "${vendorUrl}"
-    systemVersion = "${xpVersion}"}
+    systemVersion = "${xpVersion}"
+}
 
 dependencies {
     include "com.enonic.xp:lib-event:${xpVersion}"
