@@ -1,6 +1,6 @@
 {
   "name": "featuretoggle",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Feature Toggle admin tool and library for Enonic XP",
   "license": "Apache-2.0",
   "private": true,
