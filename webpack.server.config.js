@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const R = require('ramda');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const {
   setEntriesForPath,
   addRule,
@@ -19,39 +19,27 @@ const RESOURCES_PATH = 'src/main/resources';
 const config = {
   context: path.join(__dirname, RESOURCES_PATH),
   entry: {},
-  externals: [
-    /(\/lib\/(enonic|xp|mustache|thymeleaf))?\/.+/
-  ],
+  externals: [/(\/lib\/(enonic|xp|mustache|thymeleaf))?\/.+/],
   output: {
-    path: path.join(__dirname, '/build/resources/main'),
-    filename: '[name].js',
-    libraryTarget: 'commonjs'
+    path: path.join(__dirname, "/build/resources/main"),
+    filename: "[name].js",
+    libraryTarget: "commonjs",
   },
   resolve: {
     extensions: [],
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin(),
-    ],
+    minimizer: [new TerserPlugin()],
     splitChunks: {
       minSize: 30000,
     },
   },
-  plugins: [
-    new CopyWebpackPlugin([
-        // { from: 'babel-standalone/', to: 'assets/babel-standalone/' },
-      ], {
-      context: path.resolve(__dirname, 'node_modules')
-    })
-  ],
-  externals: [
-    /\/lib\/(enonic|xp)\/.+/
-  ],
+  plugins: [],
+  externals: [/\/lib\/(enonic|xp)\/.+/],
   mode: env.type,
   // Source maps are not usable in server scripts
   devtool: false,
-}
+};
 
 // ----------------------------------------------------------------------------
 // JavaScript loaders

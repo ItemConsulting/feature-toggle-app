@@ -2,21 +2,31 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Provider, useDispatch } from 'react-redux';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { configureAppStore } from './store/configureStore';
 
 import { Main } from './containers/Main/index';
 import { Header } from './containers/Header/index';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { blue, pink } from '@material-ui/core/colors';
-import { CssBaseline, makeStyles, responsiveFontSizes } from '@material-ui/core';
+import { createTheme, ThemeProvider, styled, responsiveFontSizes } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import { setServiceUrls } from './containers/Main/actions';
 
+const PREFIX = 'FeatureToggle';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledFeatureToggle = styled(FeatureToggle)({
+  [`& .${classes.root}`]: {
+    flexGrow: 1,
+  },
+});
+
 const theme = responsiveFontSizes(
-  createMuiTheme({
+  createTheme({
     palette: {
-      type: 'dark',
+      mode: 'dark',
     },
     typography: {
       htmlFontSize: 10,
@@ -24,30 +34,20 @@ const theme = responsiveFontSizes(
   })
 );
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-});
-
 function FeatureToggle(props) {
-  const classes = useStyles();
+
   return (
     <Provider store={configureAppStore()}>
       <ServiceUrls spacesUrl={props.spacesUrl} featuresUrl={props.featuresUrl} publishFeatureUrl={props.publishFeatureUrl} />
       <HelmetProvider>
-        <BrowserRouter>
-          <Helmet titleTemplate="Feature Toggle" defaultTitle="Feature Toggle"></Helmet>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className={classes.root}>
-              <Header />
-              <Switch>
-                <Route path="/" component={Main} />
-              </Switch>
-            </div>
-          </ThemeProvider>
-        </BrowserRouter>
+        <Helmet titleTemplate="Feature Toggle" defaultTitle="Feature Toggle"></Helmet>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className={classes.root}>
+            <Header />
+            <Main />
+          </div>
+        </ThemeProvider>
       </HelmetProvider>
     </Provider>
   );
@@ -65,4 +65,4 @@ FeatureToggle.propTypes = {
   publishFeatureUrl: PropTypes.string,
 };
 
-export default (props) => <FeatureToggle {...props} />;
+export default (props) => <StyledFeatureToggle {...props} />;
